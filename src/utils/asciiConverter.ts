@@ -1,14 +1,26 @@
 import figlet from "figlet";
+
+// @ts-expect-error type
 import standard from "figlet/importable-fonts/Standard.js";
+// @ts-expect-error type
 import slant from "figlet/importable-fonts/Slant.js";
+// @ts-expect-error type
 import banner from "figlet/importable-fonts/Banner.js";
+// @ts-expect-error type
 import big from "figlet/importable-fonts/Big.js";
+// @ts-expect-error type
 import block from "figlet/importable-fonts/Block.js";
+// @ts-expect-error type
 import doom from "figlet/importable-fonts/Doom.js";
+// @ts-expect-error type
 import small from "figlet/importable-fonts/Small.js";
+// @ts-expect-error type
 import digital from "figlet/importable-fonts/Digital.js";
+// @ts-expect-error type
 import script from "figlet/importable-fonts/Script.js";
+// @ts-expect-error type
 import shadow from "figlet/importable-fonts/Shadow.js";
+// @ts-expect-error type
 import mini from "figlet/importable-fonts/Mini.js";
 
 figlet.parseFont("Standard", standard);
