@@ -86,6 +86,41 @@ const AsciiRenderer: React.FC<AsciiRendererProps> = ({
     toast.success("ASCII art downloaded as .txt file!");
   };
 
+  const downloadAsPng = () => {
+    const canvas = document.getElementById("ascii-canvas") as HTMLCanvasElement;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const lines = asciiArt.split("\n");
+    const fontSize = 14;
+    const lineHeight = fontSize * 1.4;
+    const fontFamily = "monospace";
+
+    const canvasWidth =
+      Math.max(...lines.map((line) => line.length)) * (fontSize * 0.6);
+    const canvasHeight = lines.length * lineHeight + 20;
+
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    context.fillStyle = "#000000";
+    context.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    context.fillStyle = "#00FF00";
+    context.font = `${fontSize}px ${fontFamily}`;
+
+    lines.forEach((line, index) => {
+      context.fillText(line, 10, (index + 1) * lineHeight);
+    });
+
+    const link = document.createElement("a");
+    link.download = "ascii-art.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    toast.success("ASCII art downloaded as PNG image!");
+  };
+
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
@@ -110,6 +145,16 @@ const AsciiRenderer: React.FC<AsciiRendererProps> = ({
             className="text-terminal-green/80 hover:text-terminal-green hover:bg-terminal-green/10"
           >
             Download
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={downloadAsPng}
+            disabled={!asciiArt}
+            className="text-terminal-green/80 hover:text-terminal-green hover:bg-terminal-green/10"
+          >
+            PNG
           </Button>
         </div>
       </div>
@@ -149,6 +194,7 @@ const AsciiRenderer: React.FC<AsciiRendererProps> = ({
           )}
         </div>
       </CrtEffect>
+      <canvas id="ascii-canvas" className="hidden" />
     </div>
   );
 };
